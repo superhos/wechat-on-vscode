@@ -1,0 +1,43 @@
+{
+    "name": "wechat-on-vscode",
+    "displayName": "wechat-on-vscode",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "SevensChan",
+    "engines": {
+        "vscode": "^1.27.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.start"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.start",
+                "title": "wechat:start"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "eslint": "^4.11.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "lodash": "^4.17.11",
+        "moment": "^2.22.2",
+        "request": "^2.88.0",
+        "wechaty": "^0.22.4",
+        "wechaty-puppet-padchat": "^0.16.2"
+    }
+}

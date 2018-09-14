@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <style>
+        ${styles}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="line">
+            <div v-html="line"></div>
+            <a href="command:openchrome">打開chrome調試</a>
+        </div>
+        <div class="command">
+            <span>&gt;</span>
+            <!-- href="${href}" -->
+            <a>{{toUser}}</a>
+            <input id="commandInput" v-model="msg" v-on:keyup="updateCache" v-on:keyup.13="submit"/>
+            <a id="submitCommand" style="display: none" v-bind:href="submitCommand"></a>
+            <a id="cacheCommand" style="display: none" v-bind:href="cacheCommand"></a>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                line: '${line}',
+                toUser: '${toUser}',
+                msg: '${msg}',
+            },
+            computed: {
+                submitCommand(){
+                    return encodeURI('command:extension.send?' + JSON.stringify({text: this.msg}));
+                },
+                cacheCommand(){
+                    return encodeURI('command:extension.store?' + JSON.stringify({text: this.msg}));
+                }
+            },
+            mounted(){
+                window.scrollTo(0,document.body.scrollHeight);
+                let commandInput = document.getElementById('commandInput');
+                commandInput.focus();
+            },
+            methods: {
+                submit(){
+                    // console.log(this.submitCommand);
+                    if (this.msg.length === 0) return;
+                    let submitCommand = document.getElementById('submitCommand');
+                    submitCommand.click();
+                    this.msg = '';
+                    let commandInput = document.getElementById('commandInput');
+                    commandInput.focus();
+                    // this.msg = '';
+                },
+                updateCache(){
+                    let cacheCommand = document.getElementById('cacheCommand');
+                    cacheCommand.click();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
